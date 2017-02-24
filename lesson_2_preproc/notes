@@ -1,0 +1,6 @@
+1. Директивы препроцессора
+2. #include
+3. #define
+4. #ifdef, #ifndef, #else, ...
+5. console -> cpp main.c
+6. что такое switch, тернарный оператор ?:

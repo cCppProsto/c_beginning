@@ -1,0 +1,4 @@
+https://raw.githubusercontent.com/begoon/sokoban-maps/master/maps/sokoban-maps-60-plain.txt
+https://github.com/begoon/sokoban-maps/blob/master/maps/sokoban-maps-60-compressed.txt
+https://github.com/begoon/sokoban-maps
+https://habrahabr.ru/post/150882/
