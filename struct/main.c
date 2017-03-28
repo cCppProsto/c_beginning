@@ -98,7 +98,7 @@ void set_m_gr(sResources *apRes, int index)
 void init_resources(sResources *apRes)
 {
     int i = 0;
-    apRes->mine_count    = 0;
+    apRes->mine_count      = 0;
     apRes->warehouse[OIL]  = 0;
     apRes->warehouse[FOOD] = 0;
     apRes->warehouse[GOLD] = 0;
