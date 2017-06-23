@@ -1,247 +1,237 @@
 #include <stdio.h>
-#include <conio.h>
 #include <stdlib.h>
 
-#define MINE_FOOD_COST_OIL  100
-#define MINE_FOOD_COST_FOOD 200
-#define MINE_FOOD_COST_GOLD 80
+#define TEST_4
 
-#define MINE_OIL_COST_OIL  100
-#define MINE_OIL_COST_FOOD 200
-#define MINE_OIL_COST_GOLD 80
+void print_struct_info();
 
-#define MINE_GOLD_COST_OIL  300
-#define MINE_GOLD_COST_FOOD 600
-#define MINE_GOLD_COST_GOLD 200
+#ifdef TEST_1
+    typedef struct
+    {
+        char a;
+        char b;
+    }s_a;
 
-#define FOOD_COOF 2.8f
-#define OIL_COOF  2.2f
-#define GOLD_COOF 1.f
+    typedef struct
+    {
+        char a;
+        // char[1]
+        short b;
+    }s_b;
 
-typedef enum
-{
-    FOOD = 0
-   ,OIL
-   ,GOLD
-   ,MINE_END
-}eMType;
+    typedef struct
+    {
+        char a;
+        // char[3];
+        int b;
+    }s_c;
+
+    typedef struct
+    {
+        char a;
+        // char[7]
+        double b;
+    }s_d;
+
+    void print_struct_info()
+    {
+        printf("size of s_a{char;char}   = %i\n", sizeof(s_a));
+        printf("size of s_b{char;short}  = %i\n", sizeof(s_b));
+        printf("size of s_c{char;int}    = %i\n", sizeof(s_c));
+        printf("size of s_d{char;double} = %i\n", sizeof(s_d));
+    }
+#elif defined(TEST_2)
+    typedef struct
+    {
+        char a : 1;
+        char b : 1;
+        // 6
+    }s_a;
+
+    typedef struct
+    {
+        char a : 5;
+        char b : 3;
+    }s_b;
+
+    typedef struct
+    {
+        char a : 5;
+        char b : 4;
+        // 7 unused
+    }s_c;
+
+    typedef struct
+    {
+        char a : 2;
+        char   : 0; // 6 bit
+        char b : 4;
+    }s_d;
+
+    typedef struct
+    {
+        char a : 4;// 4 bist
+        int    : 0;// 28 bit unused
+        char b : 4;// 4 bits
+                   // 28 bit unused
+    }s_e;
+
+    void print_struct_info()
+    {
+        printf("size of s_a{char a:1;           char b:1} = %i\n", sizeof(s_a));
+        printf("size of s_b{char a:5;           char b:3} = %i\n", sizeof(s_b));
+        printf("size of s_c{char a:5;           char b:4} = %i\n", sizeof(s_c));
+        printf("size of s_d{char a:4; char  :0; char b:4} = %i\n", sizeof(s_d));
+        printf("size of s_e{char a:4; int   :0; char b:4} = %i\n", sizeof(s_e));
+    }
+#elif defined(TEST_3)
+    typedef struct
+    {
+        char a : 1;
+        char   : 0;
+    }s_a;
+
+    typedef struct
+    {
+        char a : 5;
+        short  : 0;
+    }s_b;
+
+    typedef struct
+    {
+        char a : 5;
+        int    : 0;
+    }s_c;
+
+    typedef struct
+    {
+        char      a : 4;
+        long long   : 0;
+    }s_d;
+
+    void print_struct_info()
+    {
+        printf("size of s_a{char a:1;           char      :0} = %i\n", sizeof(s_a));
+        printf("size of s_b{char a:5;           short     :0} = %i\n", sizeof(s_b));
+        printf("size of s_c{char a:5;           int       :0} = %i\n", sizeof(s_c));
+        printf("size of s_d{char a:4; char  :0; long long :0} = %i\n", sizeof(s_d));
+    }
+#elif defined(TEST_4)
+    typedef struct
+    {
+        char a : 1;
+        char   : 0;
+        char     b;
+    }s_a;
+    typedef struct
+    {
+        char a : 5;
+        short  : 0;
+        char     b;
+    }s_b;
+
+    typedef struct
+    {
+        char a : 5;
+        int    : 0;
+        char     b;
+    }s_c;
+
+    typedef struct
+    {
+        char a : 1;     // 1
+        char   : 0;     // 7 unused
+        char b : 2;     // 2
+        char   : 4;     // 4 unused
+        char c : 2;     // 2
+    }s_d;
+
+    typedef struct
+    {
+        char a : 1;     // 1
+        short  : 0;     // 15 unused
+        char b : 2;     // 2
+        char   : 4;     // 4 unused
+        char c : 2;     // 2
+    }s_e;
+
+    typedef struct
+    {
+        char a : 1;         // 1
+        int    : 0;         // 31 unused
+        char b : 2;         // 2
+        char   : 4;         // 4 unused
+        char c : 2;         // 2
+        // char padding [3] // 24 unused
+    }s_f;
+
+    void print_struct_info()
+    {
+        printf("size of s_a = %i\n", sizeof(s_a));
+        printf("size of s_b = %i\n", sizeof(s_b));
+        printf("size of s_c = %i\n", sizeof(s_c));
+        printf("size of s_d = %i\n", sizeof(s_d));
+        printf("size of s_e = %i\n", sizeof(s_e));
+        printf("size of s_f = %i\n", sizeof(s_f));
+    }
+#endif
+
+/*
+(C99, 6.7.2.1p4)
+"A bit-field shall have a type that is a qualified or
+unqualified version of _Bool, signed int, unsigned int, or some other
+implementation-defined type."
+
+(C99, 6.7.2.1p10)
+"If enough space remains, a bit-field that immediately follows another bit-field
+in a structure shall be packed into adjacent bits of the same unit"
+
+(C99, 6.7.2.1p11)
+"A bit-field declaration with no declarator, but only a colon and a width, indicates an
+unnamed bit-field.As a special case, a bit-field structure member with a width of 0
+indicates that no further bit-field is to be packed into the unit in which the previous bitfield,if any, was placed."
+
+
+The special unnamed bit field of width zero breaks up padding:
+it specifies that the next bit field begins at the beginning of the next
+allocation unit.
+*/
 
 typedef struct
 {
-    int    id;
-    int    level;
-    int    growth;
-    float  coof;
-    eMType type;
-}sMine;
-
+    char  ch;   // 1 byte
+                // 3 byte padding - UNUSED
+    int   *p;   // 4 byte
+    short s;    // 2 byte
+                // 2 byte padding - UNUSED
+}s1;
 
 typedef struct
 {
-    sMine mines[30];
-    int   mine_count;
-    int   warehouse[MINE_END];
-}sResources;
-
-void init_resources(sResources*);
-void resources_processing(sResources*);
-void print_res_info(sResources*);
-void increase_level_mine(sResources*, int);
+    int *p;     // 4 byte
+    short s;    // 2 byte
+    char  ch;   // 1 byte
+                // 1 byte padding - UNUSED
+}s2;
 
 int main()
 {
-    sResources resources;
-    init_resources(&resources);
+    // BONUS +++
+    printf("size of s1 = %i\n", sizeof(s1));
+    printf("size of s2 = %i\n\n\n", sizeof(s2)); // 4 byte economy!!
+    // BONUS ^^
 
-    int in_val = 0;
-
-    while(1)
-    {
-        resources_processing(&resources);
-        system("cls");
-        print_res_info(&resources);
-
-        in_val = getch();
-        switch (in_val)
-        {
-            case '0':
-            {
-                increase_level_mine(&resources, 0);
-                break;
-            }
-            case '1':
-            {
-                increase_level_mine(&resources, 1);
-                break;
-            }
-            case '2':
-            {
-                increase_level_mine(&resources, 2);
-                break;
-            }
-            case '3':
-            {
-                increase_level_mine(&resources, 3);
-                break;
-            }
-        }
-    }
-    return 0;
+    print_struct_info();
+    return 1;
 }
 
 
-void set_m_gr(sResources *apRes, int index)
-{
-    apRes->mines[index].growth = FOOD_COOF * apRes->mines[index].level;
-}
 
-void init_resources(sResources *apRes)
-{
-    int i = 0;
-    apRes->mine_count      = 0;
-    apRes->warehouse[OIL]  = 0;
-    apRes->warehouse[FOOD] = 0;
-    apRes->warehouse[GOLD] = 0;
 
-    apRes->mines[i].level  = 1;
-    apRes->mines[i].id     = i;
-    apRes->mines[i].type   = FOOD;
-    set_m_gr(apRes, i);
-    //apRes->mines[i].growth = FOOD_COOF * apRes->mines[i].level;
-    apRes->mines[i].coof   = FOOD_COOF;
-    apRes->mine_count = ++i;
 
-    apRes->mines[i].level  = 1;
-    apRes->mines[i].id     = i;
-    apRes->mines[i].type   = OIL;
-    apRes->mines[i].growth = OIL_COOF * apRes->mines[i].level;
-    apRes->mines[i].coof   = OIL_COOF;
-    apRes->mine_count = ++i;
 
-    apRes->mines[i].level  = 1;
-    apRes->mines[i].id     = i;
-    apRes->mines[i].type   = GOLD;
-    apRes->mines[i].growth = GOLD_COOF * apRes->mines[i].level;
-    apRes->mines[i].coof   = GOLD_COOF;
-    apRes->mine_count = ++i;
-}
-//------------------------------------------------------------------------------
-void resources_processing(sResources *apResources)
-{
-    eMType type;
-    for(int i = 0; i < apResources->mine_count; ++i)
-    {
-        type = apResources->mines[i].type;
-        apResources->warehouse[type] += apResources->mines[i].growth;
-    }
-}
-//------------------------------------------------------------------------------
-void print_res_info(sResources *apResources)
-{
-    printf("+----------+----------+----------+\n");
-    printf("|   food   |    oil   |   gold   |\n");
-    printf("+----------+----------+----------+\n");
-    printf("|%10i|%10i|%10i|\n",apResources->warehouse[FOOD]
-                               ,apResources->warehouse[OIL]
-                               ,apResources->warehouse[GOLD]);
-    printf("+----------+----------+----------+\n");
 
-    eMType type;
-    for(int i = 0; i < apResources->mine_count; ++i)
-    {
-        type = apResources->mines[i].type;
-        switch(type)
-        {
-            case FOOD:
-            {
-                printf("food - ");
-                break;
-            }
-            case OIL:
-            {
-                printf("oil  - ");
-                break;
-            }
-            case GOLD:
-            {
-                printf("gold - ");
-                break;
-            }
-            case MINE_END:
-                break;
-        }
-        printf("[id]:%2i;", i);
-        printf(" [level]:%3i", apResources->mines[i].level);
-        printf(" [growth]:%3i\n", apResources->mines[i].growth);
-    }
-}
-//------------------------------------------------------------------------------
-void increase_level_mine(sResources *apResources, int aId)
-{
-    int food  = apResources->warehouse[FOOD];
-    int oil   = apResources->warehouse[OIL];
-    int gold  = apResources->warehouse[GOLD];
 
-    int n_food = 0;
-    int n_oil  = 0;
-    int n_gold = 0;
 
-    int isIncreased = 0;
 
-    if(aId < apResources->mine_count)
-    {
-        switch(apResources->mines[aId].type)
-        {
-            case FOOD:
-            {
-                n_food = (apResources->mines[aId].level + 1) * MINE_FOOD_COST_FOOD;
-                n_oil  = (apResources->mines[aId].level + 1) * MINE_FOOD_COST_OIL;
-                n_gold = (apResources->mines[aId].level + 1) * MINE_FOOD_COST_GOLD;
-
-                if( food >= n_food &&
-                    oil  >= n_oil  &&
-                    gold >= n_gold)
-                    isIncreased = 1;
-                break;
-            }
-            case OIL:
-            {
-                n_food = (apResources->mines[aId].level + 1) * MINE_OIL_COST_FOOD;
-                n_oil  = (apResources->mines[aId].level + 1) * MINE_OIL_COST_OIL;
-                n_gold = (apResources->mines[aId].level + 1) * MINE_OIL_COST_GOLD;
-
-                if( food >= n_food &&
-                    oil  >= n_oil  &&
-                    gold >= n_gold)
-                    isIncreased = 1;
-                break;
-            }
-            case GOLD:
-            {
-                n_food = (apResources->mines[aId].level + 1) * MINE_GOLD_COST_FOOD;
-                n_oil  = (apResources->mines[aId].level + 1) * MINE_GOLD_COST_OIL;
-                n_gold = (apResources->mines[aId].level + 1) * MINE_GOLD_COST_GOLD;
-
-                if( food >= n_food &&
-                    oil  >= n_oil  &&
-                    gold >= n_gold)
-                    isIncreased = 1;
-                break;
-            }
-            case MINE_END:
-                break;
-        }
-
-        if(isIncreased)
-        {
-            apResources->mines[aId].level++;
-            apResources->mines[aId].growth = apResources->mines[aId].level *
-                                             apResources->mines[aId].coof;
-
-            apResources->warehouse[FOOD] -= n_food;
-            apResources->warehouse[OIL]  -= n_oil;
-            apResources->warehouse[GOLD] -= n_gold;
-        }
-    }
-}
 
