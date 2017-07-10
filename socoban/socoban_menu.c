@@ -1,8 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ncurses.h>
 #include "socoban_menu.h"
 
 #include "../../tools_src/input_tools.h"
+
+#ifdef _WIN32
+  static char *SYS_CLEAR="cls";
+#elif defined __unix__
+  static char *SYS_CLEAR="clear";
+#endif
 
 //------------------------------------------------------------------------------
 eMenuState g_s_menu_state = MENU_MAIN;
@@ -27,17 +34,17 @@ void socoban_menu_init()
 //------------------------------------------------------------------------------
 void socoban_menu_processing()
 {
-    system("cls");
+    system(SYS_CLEAR);
     s_m_draw();
 
     switch(it_get_key())
     {
-        case KEY_ENTER:
+        case IT_KEY_ENTER:
         {
             g_s_menu_state = g_s_menu_index;
             break;
         }
-        case KEY_UP:
+        case IT_KEY_UP:
         {
             if(g_s_menu_index > 0)
                 --g_s_menu_index;
@@ -45,7 +52,7 @@ void socoban_menu_processing()
                 g_s_menu_index = MENU_EXIT;
             break;
         }
-        case KEY_DOWN:
+        case IT_KEY_DOWN:
         {
             if(g_s_menu_index < (MENU_MAIN_END - 1))
                 ++g_s_menu_index;
@@ -53,15 +60,15 @@ void socoban_menu_processing()
                 g_s_menu_index = MENU_START;
             break;
         }
-        case KEY_ESC:
+        case IT_KEY_ESC:
         {
             g_s_menu_state = MENU_EXIT;
             break;
         }
-        case KEY_UNKNOWN:
-        case KEY_SPACE:
-        case KEY_RIGTH:
-        case KEY_LEFT:
+        case IT_KEY_UNKNOWN:
+        case IT_KEY_SPACE:
+        case IT_KEY_RIGTH:
+        case IT_KEY_LEFT:
             break;
     }
 }
@@ -76,9 +83,15 @@ void s_m_draw()
     for(unsigned i = 0; i < MENU_MAIN_END; ++i)
     {
         if(i == g_s_menu_index)
-            printf("[%s]\n", g_s_menu_items[i]);
+        {
+            printf("[%s]", g_s_menu_items[i]);
+            it_new_line();
+        }
         else
-            printf("%s\n", g_s_menu_items[i]);
+        {
+            printf("%s", g_s_menu_items[i]);
+            it_new_line();
+        }
     }
 }
 

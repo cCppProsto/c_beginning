@@ -5,7 +5,7 @@ CONFIG -= qt
 
 SOURCES += main.c
 
-QMAKE_CFLAGS += -std=c11
+QMAKE_CFLAGS += -std=gnu99
 
 HEADERS += \
     example_1.h \

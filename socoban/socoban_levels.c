@@ -3,19 +3,18 @@
 #include <memory.h>
 
 #include "socoban_levels.h"
-
 #include "levels_data.c"
+#include "../../tools_src/input_tools.h"
 
 #define EMPTY           ' '
-#define BOX             219 // '█'(219) | '■'(254)
+#define BOX             '*' // '█'(219) | '■'(254)
 #define BOX_PLACE       '.'
-#define BOX_ON_PLACE    3   // '♥'
-#define PLAYER          1   // '☺'
+#define BOX_ON_PLACE    'W'   // '♥'
+#define PLAYER          '@'   // '☺'
 
 #define DRAW_MAP_SIZE 30*30
 
 unsigned g_s_levels_is_victory = 0;
-
 unsigned g_s_levels_level;
 unsigned g_s_levels_width;
 unsigned g_s_levels_heigth;
@@ -28,11 +27,8 @@ unsigned char g_s_levels_draw_map[DRAW_MAP_SIZE];
 char        **g_s_levels_map;
 
 void map_prepare();
-
 unsigned get_offset(eDirection);
-
 unsigned check_and_move_box(unsigned, eDirection);
-
 
 //------------------------------------------------------------------------------
 void socoban_levels_load(unsigned aLevel)
@@ -89,7 +85,7 @@ void socoban_levels_draw()
             pos++;
             j++;
         }
-        printf("\n");
+        it_new_line();
     }
 }
 //------------------------------------------------------------------------------
