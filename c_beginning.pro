@@ -15,4 +15,5 @@ SUBDIRS += \
     list \
     unsigned_overlflow \
     input_output \
-    pass_array_to_func
+    pass_array_to_func \
+    union
