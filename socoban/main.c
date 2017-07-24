@@ -7,12 +7,6 @@
 
 unsigned g_cur_level = 1;
 
-#ifdef _WIN32
-  static char *SYS_CLEAR="cls";
-#elif defined __unix__
-  static char *SYS_CLEAR="clear";
-#endif
-
 //------------------------------------------------------------------------------
 typedef enum
 {
@@ -92,7 +86,7 @@ void game_init()
 //------------------------------------------------------------------------------
 void game_main()
 {
-  system(SYS_CLEAR);
+  it_clrscr();
 
   game_draw();
 
@@ -105,8 +99,7 @@ void game_draw()
 
     if(socoban_levels_is_victory())
     {
-        printf("Victory!!");
-        it_new_line();
+        IT_PRINTF("%s","Victory!!\n");
         ++g_cur_level;
         socoban_levels_load(g_cur_level);
         it_get_key();
@@ -187,9 +180,8 @@ void game_menu()
 //------------------------------------------------------------------------------
 void game_about()
 {
-    system(SYS_CLEAR);
-    printf("about");
-    it_new_line();
+    it_clrscr();
+    IT_PRINTF("%s", "about\n");
 
     if(it_get_key() == IT_KEY_ESC)
     {
@@ -200,9 +192,8 @@ void game_about()
 //------------------------------------------------------------------------------
 void game_select_level()
 {
-    system(SYS_CLEAR);
-    printf("select level");
-    it_new_line();
+    it_clrscr();
+    IT_PRINTF("%s", "select level\n");
 
     if(it_get_key() == IT_KEY_ESC)
     {
@@ -213,10 +204,8 @@ void game_select_level()
 //------------------------------------------------------------------------------
 void game_exit()
 {
-    system(SYS_CLEAR);
-    printf("good by!");
-    it_new_line();
-
+    it_clrscr();
+    IT_PRINTF("%s", "good by!\n");
     it_get_key();
 }
 

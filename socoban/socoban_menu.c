@@ -5,12 +5,6 @@
 
 #include "../../tools_src/input_tools.h"
 
-#ifdef _WIN32
-  static char *SYS_CLEAR="cls";
-#elif defined __unix__
-  static char *SYS_CLEAR="clear";
-#endif
-
 //------------------------------------------------------------------------------
 eMenuState g_s_menu_state = MENU_MAIN;
 unsigned   g_s_menu_index = MENU_START;
@@ -34,65 +28,64 @@ void socoban_menu_init()
 //------------------------------------------------------------------------------
 void socoban_menu_processing()
 {
-    system(SYS_CLEAR);
-    s_m_draw();
+  it_clrscr();
+  s_m_draw();
 
-    switch(it_get_key())
-    {
-        case IT_KEY_ENTER:
-        {
-            g_s_menu_state = g_s_menu_index;
-            break;
-        }
-        case IT_KEY_UP:
-        {
-            if(g_s_menu_index > 0)
-                --g_s_menu_index;
-            else
-                g_s_menu_index = MENU_EXIT;
-            break;
-        }
-        case IT_KEY_DOWN:
-        {
-            if(g_s_menu_index < (MENU_MAIN_END - 1))
-                ++g_s_menu_index;
-            else
-                g_s_menu_index = MENU_START;
-            break;
-        }
-        case IT_KEY_ESC:
-        {
-            g_s_menu_state = MENU_EXIT;
-            break;
-        }
-        case IT_KEY_UNKNOWN:
-        case IT_KEY_SPACE:
-        case IT_KEY_RIGTH:
-        case IT_KEY_LEFT:
-            break;
-    }
+  switch(it_get_key())
+  {
+      case IT_KEY_ENTER:
+      {
+          g_s_menu_state = g_s_menu_index;
+          break;
+      }
+      case IT_KEY_UP:
+      {
+          if(g_s_menu_index > 0)
+              --g_s_menu_index;
+          else
+              g_s_menu_index = MENU_EXIT;
+          break;
+      }
+      case IT_KEY_DOWN:
+      {
+          if(g_s_menu_index < (MENU_MAIN_END - 1))
+              ++g_s_menu_index;
+          else
+              g_s_menu_index = MENU_START;
+          break;
+      }
+      case IT_KEY_ESC:
+      {
+          g_s_menu_state = MENU_EXIT;
+          break;
+      }
+      case IT_KEY_UNKNOWN:
+      case IT_KEY_SPACE:
+      case IT_KEY_RIGTH:
+      case IT_KEY_LEFT:
+          break;
+  }
 }
 //------------------------------------------------------------------------------
 eMenuState socoban_menu_current_state()
 {
-    return g_s_menu_state;
+  return g_s_menu_state;
 }
 //------------------------------------------------------------------------------
 void s_m_draw()
 {
-    for(unsigned i = 0; i < MENU_MAIN_END; ++i)
+  for(unsigned i = 0; i < MENU_MAIN_END; ++i)
+  {
+    if(i == g_s_menu_index)
     {
-        if(i == g_s_menu_index)
-        {
-            printf("[%s]", g_s_menu_items[i]);
-            it_new_line();
-        }
-        else
-        {
-            printf("%s", g_s_menu_items[i]);
-            it_new_line();
-        }
+      IT_PRINTF("[%s]", g_s_menu_items[i]);
     }
+    else
+    {
+      IT_PRINTF("%s", g_s_menu_items[i]);
+    }
+    IT_PRINTF("%s","\n");
+  }
 }
 
 

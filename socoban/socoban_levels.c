@@ -78,14 +78,18 @@ void socoban_levels_draw()
         while(g_s_levels_draw_map[i*g_s_levels_width + j])
         {
             if(pos == g_s_levels_player_position)
-                printf("%c", PLAYER);
+            {
+                IT_PRINTF("%c", PLAYER);
+            }
             else
-                printf("%c", g_s_levels_draw_map[i*g_s_levels_width + j]);
+            {
+              IT_PRINTF("%c", g_s_levels_draw_map[i*g_s_levels_width + j]);
+            }
 
             pos++;
             j++;
         }
-        it_new_line();
+        IT_PRINTF("%s","\n");
     }
 }
 //------------------------------------------------------------------------------
