@@ -466,9 +466,8 @@ void test_post_order_print()
 
 int main()
 {
-  //test_tree_rr();
-  //test_tree_2();
-
+  test_tree_rr();
+  test_tree_2();
 
   /*       ______8______
           /             \
