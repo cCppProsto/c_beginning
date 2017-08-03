@@ -16,4 +16,8 @@ SUBDIRS += \
     unsigned_overlflow \
     input_output \
     pass_array_to_func \
-    union
+    union \
+    binary_tree
+
+SOURCES += \
+    ../tools_src/binary_int_tree.c
