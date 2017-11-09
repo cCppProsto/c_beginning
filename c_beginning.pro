@@ -17,7 +17,8 @@ SUBDIRS += \
     input_output \
     pass_array_to_func \
     union \
-    binary_tree
+    binary_tree \
+    stack_memory
 
 SOURCES += \
     ../tools_src/binary_int_tree.c
