@@ -5,7 +5,6 @@
 
 #include "../../tools_src/input_tools.h"
 
-//------------------------------------------------------------------------------
 eMenuState g_s_menu_state = MENU_MAIN;
 unsigned   g_s_menu_index = MENU_START;
 
