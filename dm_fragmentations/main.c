@@ -116,7 +116,6 @@ void test_3()
   p[index] = malloc(ALLOC_SIZE);
   offset = p[index] - offset;
   printf("%p - %u\n", p[index], offset);
-
   offset = p[index];
   index++;
   p[index] = malloc(ALLOC_SIZE);
@@ -161,13 +160,13 @@ void test_4()
 }
 
 /*
+ *
 1)
   |    |
   |mm  |  - allocate for message
   |mm|n|  - allocate for node 1
   |  |n|  - free for message
   |n |n|  - allocate for node 2
-
 2)
   |n |n|
   |n |n|mm  |  - allocate for message
@@ -177,7 +176,7 @@ void test_4()
 */
 void test_5()
 {
-  #define ALLOC_SIZE_MESSAGE 200
+  #define ALLOC_SIZE_MESSAGE 190
   #define ALLOC_SIZE_NODE    100
 
   malloc(ALLOC_SIZE_MESSAGE);
@@ -217,9 +216,10 @@ void test_5()
   |n|n|n|n|mm|  - allocate for message
   |n|n|n|n|     - free for message
 */
+
 void test_6()
 {
-  #define ALLOC_SIZE_MESSAGE 200
+  #define ALLOC_SIZE_MESSAGE 190
   #define ALLOC_SIZE_NODE    100
 
   malloc(ALLOC_SIZE_MESSAGE);
@@ -257,11 +257,11 @@ int main()
 //  test_4();
 //  printf("\n\n");
 
-  test_5();
-  printf("\n\n");
+//  test_5();
+//  printf("\n\n");
 
-  test_6();
-  printf("\n\n");
+//  test_6();
+//  printf("\n\n");
 
   return 0;
 }
