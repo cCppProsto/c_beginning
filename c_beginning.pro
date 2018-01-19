@@ -19,7 +19,8 @@ SUBDIRS += \
     union \
     binary_tree \
     stack_memory \
-    dm_fragmentations
+    dm_fragmentations \
+    va_list
 
 SOURCES += \
     ../tools_src/binary_int_tree.c

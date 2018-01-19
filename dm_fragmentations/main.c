@@ -245,8 +245,8 @@ void test_6()
 
 int main()
 {
-//  test_1();
-//  printf("\n\n");
+  test_1();
+  printf("\n\n");
 
 //  test_2();
 //  printf("\n\n");
