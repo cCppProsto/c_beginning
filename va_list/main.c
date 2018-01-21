@@ -2,6 +2,7 @@
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
 
 
+
 //------------------------------------------------------------------------------
 void f_a(int aCount, ...)
 {
@@ -20,6 +21,7 @@ void f_a(int aCount, ...)
 void example_a()
 {
   f_a(3, 1, 2, 3);
+  f_a(5, 1, 2, 3, 4, 5);
 }
 //------------------------------------------------------------------------------
 
@@ -144,8 +146,28 @@ void example_c()
 
 int main ()
 {
+  // void f(int a, ... , int b) - error
+  // void f(... )               - error
+
   example_a();
   example_b();
   example_c();
   return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
