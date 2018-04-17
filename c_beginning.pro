@@ -20,7 +20,8 @@ SUBDIRS += \
     binary_tree \
     stack_memory \
     dm_fragmentations \
-    va_list
+    va_list \
+    circular_buffer
 
 SOURCES += \
     ../tools_src/binary_int_tree.c
